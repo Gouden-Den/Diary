@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7dtd">
+<struts>
+	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+	<constant name="struts.objectFactory" value="spring"/>
+	<package name="diary" extends="struts-default" namespace="/">
+		<action name="register" class="Register">
+			<result name="success">/index.jsp</result>
+			<result name="input">/register.jsp</result>
+		</action>
+		<action name="login" class="Login">
+			<result name="input">/login.jsp</result>
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="writeDiary" class="WriteDiary">
+			<result name="input">/login.jsp</result>
+			<result name="success">/message.jsp</result>
+			<result name="false">/message.jsp</result>
+		</action>
+		<action name="getAllDiary" class="GetAllDiary">
+			<result name="success">/getAllDiary.jsp</result>
+		</action>
+		<action name="getDetail" class="GetDetail">
+			<result name="success">/diaryDetail.jsp</result>
+		</action>
+		<action name="updateDiary" class="UpdateDiary">
+			<result name="success">/message.jsp</result>
+		</action>
+		<action name="getDiaryByMonth" class="GetDiaryByMonth">
+			<result name="success">/getDiaryByMonth.jsp</result>
+		</action>
+		<action name="getDiaries" class="GetDiaries">
+			<result name="success">/getDiaries.jsp</result>
+		</action>
+		<action name="deleteDiary" class="DeleteDiary">
+			<result name="success">/message.jsp</result>
+		</action>
+	</package>
+</struts>

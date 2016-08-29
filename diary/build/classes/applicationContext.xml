@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/diary"/>
+		<property name="username" value="root"/>
+		<property name="password" value="dzx123"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>domain</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="diaryDao" class="dao.DiaryDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="userDao" class="dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="userService" class="service.UserService">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	<bean id="diaryService" class="service.DiaryService">
+		<property name="diaryDao" ref="diaryDao"/>
+	</bean>
+	
+	<bean id="Register" class="action.RegisterAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean id="Login" class="action.LoginAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean id="WriteDiary" class="action.WriteDiaryAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="GetAllDiary" class="action.GetAllDiaryAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="GetDetail" class="action.GetDetailAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="UpdateDiary" class="action.UpdateDiaryAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="GetDiaryByMonth" class="action.GetDiaryByMonthAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="GetDiaries" class="action.GetDiariesAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+	<bean id="DeleteDiary" class="action.DeleteDiaryAction">
+		<property name="diaryService" ref="diaryService"/>
+	</bean>
+</beans>
